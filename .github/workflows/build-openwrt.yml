@@ -130,12 +130,12 @@ jobs:
           echo "url=$(cat WENSHUSHU.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
 
     - name: 生成Tag标识
-      id: tag
+      id: tag1
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=K3Lite-lede-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
-        [ $UPLOAD_WENSHUSHU = true ] && echo "🔗 [WENSHUSHU](${{ steps.WENSHUSHU.outputs.url }})" >> release.txt
+        echo "release_tag=K3-OpenWrt-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        touch release1.txt
+        [ $UPLOAD_WENSHUSHU = true ] && echo "🔗 [WENSHUSHU](${{ steps.WENSHUSHU.outputs.url }})" >> release1.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件目录 - Upload firmware directory
@@ -146,11 +146,11 @@ jobs:
         path: ${{ env.FIRMWARE }}
 
     - name: 生成Release标识 - Generate release tag
-      id: tag
+      id: tag2
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "release_tag=K3-OpenWrt-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
+        touch release2.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 发布到Release - Upload firmware to release
