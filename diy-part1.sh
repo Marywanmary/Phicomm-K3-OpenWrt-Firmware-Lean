@@ -65,8 +65,8 @@ echo '=========Replace k3screen drive plug OK!========='
 # echo '=========Add kenzok8 source OK!========='
 
 # echo '添加kenzok8 small-package'
-# sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
-# echo '=========Add kenzok8 source OK!========='
+sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
+echo '=========Add kenzok8 source OK!========='
 
 # echo '添加MosDNS'
 # rm -rf feeds/packages/net/v2ray-geodata
