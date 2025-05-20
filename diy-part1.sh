@@ -95,3 +95,8 @@ echo '=========Add kenzok8 source OK!========='
 # rm -rf ./package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin
 # cp -af https://github.com/JE668/Phicomm-K3-OpenWrt-Firmware-Lean/raw/refs/heads/main/brcmfmac4366c-pcie.bin ./package/lean/k3-brcmfmac4366c-firmware/files/lib/firmware/brcm/brcmfmac4366c-pcie.bin
 # echo '=========Replace k3 wireless firmware OK!========='
+
+echo '添加软件源'
+echo 'src-git sirpdboy https://github.com/sirpdboy/sirpdboy-package' >>feeds.conf.default
+# echo 'src-git small8 https://github.com/kenzok8/small-package' >>feeds.conf.default
+echo '=========添加软件源 OK!========='
