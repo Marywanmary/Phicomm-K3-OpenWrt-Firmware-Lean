@@ -119,6 +119,24 @@ jobs:
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
+        
+    - name: 发布到文叔叔网盘
+      id: WENSHUSHU
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WENSHUSHU == 'true' && !cancelled()
+      run: |
+          curl -fsSL git.io/file-transfer | sh
+          ./transfer wss -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee WENSHUSHU.log
+          echo "::warning file=WENSHUSHU.cn::$(cat WENSHUSHU.log | grep https)"
+          echo "url=$(cat WENSHUSHU.log | grep https | cut -f3 -d" ")" >> $GITHUB_OUTPUT
+
+    - name: 生成Tag标识
+      id: tag
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "release_tag=K3Lite-lede-$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+        touch release.txt
+        [ $UPLOAD_WENSHUSHU = true ] && echo "🔗 [WENSHUSHU](${{ steps.WENSHUSHU.outputs.url }})" >> release.txt
+        echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件目录 - Upload firmware directory
       uses: actions/upload-artifact@main
